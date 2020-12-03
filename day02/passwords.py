@@ -9,6 +9,11 @@ def is_valid(policy, passwd):
     cnt = passwd.count(letter)
     return cnt <= maxi and cnt >= mini
 
+def is_valid_2(policy, passwd):
+    mini, maxi, letter = parse_policy(policy)
+    return sum((passwd[mini-1] == letter, passwd[maxi-1] == letter)) == 1
+
+
 def get_input():
     pairs = []
     with open('input.txt') as f:
@@ -22,7 +27,7 @@ def main():
     passwd_pairs = get_input()
     valid = 0
     for pair in passwd_pairs:
-        if is_valid(*pair):
+        if is_valid_2(*pair):
             valid += 1
     return valid
 

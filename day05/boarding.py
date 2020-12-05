@@ -19,12 +19,16 @@ def get_seat_id(code):
 
 
 def main(f):
-    seat = 0
+    seats = []
     for line in f:
-        seat_id = get_seat_id(line.strip())
-        if seat_id > seat:
-            seat = seat_id
-    return seat
+        seats.append(get_seat_id(line.strip()))
+    seats.sort()
+
+    last = 70
+    for seat in seats:
+        if seat != last + 1:
+            return seat - 1
+        last = seat
 
 
 if __name__ == '__main__':

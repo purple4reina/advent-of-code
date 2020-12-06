@@ -1,14 +1,19 @@
 def solve(f):
     total = 0
-    party = {}
+    party = None
     for row in f:
         row = row.strip()
+        person = set()
         if not row:
             total += len(party)
-            party.clear()
+            party = None
         else:
             for letter in row:
-                party[letter] = True
+                person.add(letter)
+            if party == None:
+                party = person
+            else:
+                party &= person
     total += len(party)
     return total
 

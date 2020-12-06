@@ -16,7 +16,7 @@ a
 a
 a
 
-b""".split('\n'), 11),
+b""".split('\n'), 6),
 )
 
 @pytest.mark.parametrize('n,expect', _test_solve)

@@ -12,7 +12,8 @@ _test_solve = (
 19
 6
 12
-4""".split('\n'), 35),
+4""".split('\n'), 8),
+
         ("""28
 33
 18
@@ -43,7 +44,7 @@ _test_solve = (
 2
 34
 10
-3""".split('\n'), 220),
+3""".split('\n'), 19208),
 )
 
 @pytest.mark.parametrize('n,expect', _test_solve)

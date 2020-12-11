@@ -27,23 +27,18 @@ def solve(f):
         if num - prev > 3:
             return False
 
+        return dig(num, index+1)
+
+    def dig(num, index):
         totals = 0
-        for i in range(index+1, len(nums)+1):
+        for i in range(index, len(nums)+1):
             total = search(num, i)
             if not total:
                 break
             totals += total
-
         return totals
 
-    totals = 0
-    for i in range(len(nums)+1):
-        total = search(0, i)
-        if not total:
-            break
-        totals += total
-
-    return totals
+    return dig(0, 0)
 
 
 if __name__ == '__main__':

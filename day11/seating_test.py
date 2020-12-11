@@ -11,7 +11,7 @@ L.LLLLL.LL
 ..L.L.....
 LLLLLLLLLL
 L.LLLLLL.L
-L.LLLLL.LL""".split('\n'), 37),
+L.LLLLL.LL""".split('\n'), 26),
 )
 
 @pytest.mark.parametrize('n,expect', _test_solve)

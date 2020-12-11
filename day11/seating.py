@@ -1,16 +1,43 @@
+def cache(fn):
+    _cache = {}
+    def wrap(*args):
+        if args in _cache:
+            return _cache[args]
+        ret = fn(*args)
+        _cache[args] = ret
+        return ret
+    return wrap
+
+
 def solve(seating):
     rows = len(seating)
     cols = len(seating[0])
+
+    @cache
+    def viewables(row, col):
+        views = []
+        transforms = (
+            (-1, -1), (-1, 0), (-1, 1),
+            ( 0, -1),          ( 0, 1),
+            ( 1, -1), ( 1, 0), ( 1, 1))
+
+        for row_d, col_d in transforms:
+            r, c = row + row_d, col + col_d
+            while r >= 0 and c >= 0 and r < rows and c < cols:
+                if seating[r][c] != '.':
+                    views.append((r, c))
+                    break
+                r += row_d
+                c += col_d
+
+        return views
 
     def update_seating(seating):
 
         def count_occupied(row, col):
             count = 0
-            for r in range(max(0, row-1), min(row+2, rows)):
-                for c in range(max(0, col-1), min(col+2, cols)):
-                    if r == row and c == col:
-                        continue
-                    count += seating[r][c] == '#'
+            for r, c in viewables(row, col):
+                count += seating[r][c] == '#'
             return count
 
         new_seating = []
@@ -20,7 +47,7 @@ def solve(seating):
                 spot = seating[r][c]
                 if spot == 'L' and count_occupied(r, c) == 0:
                     row += '#'
-                elif spot == '#' and count_occupied(r, c) > 3:
+                elif spot == '#' and count_occupied(r, c) > 4:
                     row += 'L'
                 else:
                     row += spot

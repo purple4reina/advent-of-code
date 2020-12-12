@@ -6,7 +6,7 @@ _test_solve = (
 N3
 F7
 R90
-F11""".split('\n'), 25),
+F11""".split('\n'), 286),
 )
 
 @pytest.mark.parametrize('n,expect', _test_solve)

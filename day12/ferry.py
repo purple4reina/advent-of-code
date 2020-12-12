@@ -5,29 +5,34 @@ class Ferry(object):
     def __init__(self):
         self.x = 0
         self.y = 0
-        self.r = 0
+        self.waypoint_x = 10
+        self.waypoint_y = 1
 
     def N(self, amt):
-        self.y += amt
+        self.waypoint_y += amt
 
     def S(self, amt):
-        self.y -= amt
+        self.waypoint_y -= amt
 
     def E(self, amt):
-        self.x += amt
+        self.waypoint_x += amt
 
     def W(self, amt):
-        self.x -= amt
+        self.waypoint_x -= amt
 
     def L(self, amt):
-        self.r += amt * math.pi / 180
+        while amt:
+            self.waypoint_x, self.waypoint_y = -self.waypoint_y, self.waypoint_x
+            amt -= 90
 
     def R(self, amt):
-        self.r -= amt * math.pi / 180
+        while amt:
+            self.waypoint_x, self.waypoint_y = self.waypoint_y, -self.waypoint_x
+            amt -= 90
 
     def F(self, amt):
-        self.x += amt * int(math.cos(self.r))
-        self.y += amt * int(math.sin(self.r))
+        self.x += amt * self.waypoint_x
+        self.y += amt * self.waypoint_y
 
     def manhattan(self):
         return max(self.y, -self.y) + max(self.x, -self.x)

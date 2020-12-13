@@ -3,7 +3,7 @@ from shuttle import solve
 
 _test_solve = (
         ("""939
-7,13,x,x,59,x,31,19""".split('\n'), 295),
+7,13,x,x,59,x,31,19""".split('\n'), 1068788),
 )
 
 @pytest.mark.parametrize('n,expect', _test_solve)

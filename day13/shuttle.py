@@ -1,22 +1,28 @@
 def solve(inp):
-    time_now, buses = int(inp[0]), inp[1]
-
-    next_bus, wait_time = 0, float('inf')
-    for bus in buses.split(','):
+    buses, last = {}, 0
+    for i, bus in enumerate(inp[1].split(',')):
         try:
             bus = int(bus)
         except ValueError:
             continue
+        buses[bus] = i
+        last = i
 
-        dep = 0
-        while dep < time_now:
-            dep += bus
-        wait = dep - time_now
-        if wait < wait_time:
-            next_bus = bus
-            wait_time = wait
+    stop = 1
+    for b in buses:
+        stop *= b
 
-    return next_bus * wait_time
+    delta = max(buses)
+    t = delta + last - buses[delta]
+    while True:
+        for bus, i in buses.items():
+            if (t - last + i) % bus != 0:
+                break
+        else:
+            return t
+        t += delta
+
+        assert t < stop
 
 
 if __name__ == '__main__':

@@ -1,28 +1,22 @@
 def solve(inp):
-    buses, last = {}, 0
+    buses = []
     for i, bus in enumerate(inp[1].split(',')):
         try:
             bus = int(bus)
         except ValueError:
             continue
-        buses[bus] = i
-        last = i
+        buses.append((bus, i))
 
-    stop = 1
-    for b in buses:
-        stop *= b
-
-    delta = max(buses)
-    t = delta + last - buses[delta]
+    delta, t = 1, 0
     while True:
-        for bus, i in buses.items():
-            if (t - last + i) % bus != 0:
+        delta = 1
+        for bus, i in buses:
+            if (t + i) % bus != 0:
                 break
+            delta *= bus
         else:
-            return t - last
+            return t
         t += delta
-
-        assert t < stop
 
 
 if __name__ == '__main__':

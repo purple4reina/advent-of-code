@@ -19,7 +19,7 @@ def solve(inp):
             if (t - last + i) % bus != 0:
                 break
         else:
-            return t
+            return t - last
         t += delta
 
         assert t < stop

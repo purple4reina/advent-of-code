@@ -55,7 +55,6 @@ func applyChaos(i, mask, val int64, mem map[int64]int64) {
 	var p int64
 	for mask > 0 {
 		bit := mask & 1
-		p++
 
 		if bit == 1 {
 			var newIndexes []int64
@@ -66,6 +65,7 @@ func applyChaos(i, mask, val int64, mem map[int64]int64) {
 			indexes = newIndexes
 		}
 		mask >>= 1
+		p++
 	}
 	for _, i := range indexes {
 		mem[i] = val

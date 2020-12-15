@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func ParseMask(line string) (int64, [][2]int64) {
+func ParseMask(line string) (int64, int64) {
 	line = strings.Split(line, " = ")[1]
 
 	orMaskStr := strings.Replace(line, "X", "0", -1)
@@ -17,8 +17,14 @@ func ParseMask(line string) (int64, [][2]int64) {
 		log.Fatal(err)
 	}
 
-	var chaosMasks [][2]int64
-	return orMask, chaosMasks
+	chaosMaskStr := strings.Replace(line, "1", "0", -1)
+	chaosMaskStr = strings.Replace(chaosMaskStr, "X", "1", -1)
+	chaosMask, err := strconv.ParseInt(chaosMaskStr, 2, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return orMask, chaosMask
 }
 
 func ParseAssignment(line string) (int64, int64) {
@@ -39,19 +45,43 @@ func ParseAssignment(line string) (int64, int64) {
 	return mem, num
 }
 
+func updateBit(i, p, d int64) int64 {
+	var mask int64 = 1 << p
+	return (i & ^mask) | ((d << p) & mask)
+}
+
+func applyChaos(i, mask, val int64, mem map[int64]int64) {
+	indexes := []int64{i}
+	var p int64
+	for mask > 0 {
+		bit := mask & 1
+		p++
+
+		if bit == 1 {
+			var newIndexes []int64
+			for _, i := range indexes {
+				newIndexes = append(newIndexes, updateBit(i, p, 0))
+				newIndexes = append(newIndexes, updateBit(i, p, 1))
+			}
+			indexes = newIndexes
+		}
+		mask >>= 1
+	}
+	for _, i := range indexes {
+		mem[i] = val
+	}
+}
+
 func Solve(input []string) int64 {
-	mem := make([]int64, 1000000)
-	var orMask int64
-	var chaosMasks [][2]int64
+	mem := make(map[int64]int64)
+	var orMask, chaosMask int64
 	for _, line := range input {
 		if strings.HasPrefix(line, "mask") {
-			orMask, chaosMasks = ParseMask(line)
+			orMask, chaosMask = ParseMask(line)
 		} else {
 			i, val := ParseAssignment(line)
 			i |= orMask
-			for _, mask := range chaosMasks {
-				mem[i&mask[0]|mask[1]] = val
-			}
+			applyChaos(i, chaosMask, val, mem)
 		}
 	}
 	var sum int64

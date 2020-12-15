@@ -8,21 +8,17 @@ import (
 	"strings"
 )
 
-func ParseMask(line string) (int64, int64) {
+func ParseMask(line string) (int64, [][2]int64) {
 	line = strings.Split(line, " = ")[1]
-
-	andMaskStr := strings.Replace(line, "X", "1", -1)
-	andMask, err := strconv.ParseInt(andMaskStr, 2, 64)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	orMaskStr := strings.Replace(line, "X", "0", -1)
 	orMask, err := strconv.ParseInt(orMaskStr, 2, 64)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return andMask, orMask
+
+	var chaosMasks [][2]int64
+	return orMask, chaosMasks
 }
 
 func ParseAssignment(line string) (int64, int64) {
@@ -45,13 +41,17 @@ func ParseAssignment(line string) (int64, int64) {
 
 func Solve(input []string) int64 {
 	mem := make([]int64, 1000000)
-	var andMask, orMask int64
+	var orMask int64
+	var chaosMasks [][2]int64
 	for _, line := range input {
 		if strings.HasPrefix(line, "mask") {
-			andMask, orMask = ParseMask(line)
+			orMask, chaosMasks = ParseMask(line)
 		} else {
 			i, val := ParseAssignment(line)
-			mem[i] = val&andMask | orMask
+			i |= orMask
+			for _, mask := range chaosMasks {
+				mem[i&mask[0]|mask[1]] = val
+			}
 		}
 	}
 	var sum int64

@@ -8,6 +8,8 @@ def parse(inp):
             break
         num, rule = line.split(': ')
         rules[num] = '(' + rule.strip('"') + ')'
+    rules['8'] = '42 | 42 8'
+    rules['11'] = '42 31 | 42 11 31'
     msgs = inp[i+1:]
     return rules, msgs
 

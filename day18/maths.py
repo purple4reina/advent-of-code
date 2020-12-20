@@ -24,11 +24,19 @@ def maths(exp):
         elif char == ")":
             parens -= 1
             if parens == 0:
-                total = oper(total, maths(exp[parens_i+1:i]))
-                parens_i = None
+                if oper == add:
+                    total = oper(total, maths(exp[parens_i+1:i]))
+                    parens_i = None
+                else:
+                    total = oper(total, maths(exp[parens_i:]))
+                    break
         else:
             if parens == 0:
-                total = oper(total, int(char))
+                if oper == add:
+                    total = oper(total, int(char))
+                else:
+                    total = oper(total, maths(exp[i:]))
+                    break
     return total
 
 

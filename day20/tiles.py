@@ -15,7 +15,7 @@ def parse(f):
     for line in f:
         if not line:
             tiles.append((int(num),) + build(tile))
-            tile.clear()
+            tile = []
             num = None
             continue
         elif num is None:
@@ -48,7 +48,7 @@ def orientations(t):
     yield (t[0], t[4], t[1], t[2], t[3])
 
 
-def solve(f):
+def reassemble(f):
     tiles = parse(f)
     tot = len(tiles)
     root = int(tot ** 0.5)
@@ -63,9 +63,6 @@ def solve(f):
                 return False
         return True
 
-    def answer(s):
-        return s[0][0] * s[root-1][0] * s[-1][0] * s[tot-root][0]
-
     def search(state, pos):
         for tile in tiles:
             if tile[0] in (s[0] for s in state[:pos]):
@@ -75,12 +72,27 @@ def solve(f):
                     continue
                 state[pos] = orient
                 if pos == tot - 1:
-                    return answer(state)
+                    return state
                 ans = search(state, pos + 1)
                 if ans:
                     return ans
 
     return search([None] * tot, 0)
+
+
+def collage(state):
+    tot = len(state)
+    root = int(tot ** 0.5)
+
+    image = []
+    for group in range(root):
+        for row in range(1, 9):
+            image.append(''.join(   ))
+
+
+def solve(f):
+    state = reassemble(f)
+    image = collage(state)
 
 
 if __name__ == '__main__':

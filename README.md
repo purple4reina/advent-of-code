@@ -1,4 +1,4 @@
-# advent-of-code-2020
+# advent-of-code
 
-My solutions to the [2020 Advent of Code](https://adventofcode.com/)
-programming adventure.
+My solutions to the [Advent of Code](https://adventofcode.com/) programming
+adventures.

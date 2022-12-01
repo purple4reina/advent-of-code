@@ -1,20 +1,13 @@
 def part1(inputs):
-    top_e = this_e = 0
-    for cals in inputs:
-        this_e += cals
-        if not cals:
-            top_e, this_e = max(this_e, top_e), 0
-    top_e, this_e = max(this_e, top_e), 0
+    top_e = 0
+    for elf in inputs:
+        top_e = max(sum(elf), top_e)
     return top_e
 
 def part2(inputs):
-    vals, this_e = [], 0
-    for cals in inputs:
-        this_e += cals
-        if not cals:
-            vals.append(this_e)
-            this_e = 0
-    vals.append(this_e)
+    vals = []
+    for elf in inputs:
+        vals.append(sum(elf))
     return sum(sorted(vals)[-3:])
 
 def read_inputs():
@@ -24,7 +17,7 @@ def read_inputs():
         return f.read().strip()
 
 def process(raw):
-    return [int(r) if r else 0 for r in raw.split('\n')]
+    return [[int(r) for r in c.split()] for c in raw.split('\n\n')]
 
 if __name__ == '__main__':
     inputs = process(read_inputs())

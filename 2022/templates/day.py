@@ -5,7 +5,9 @@ def part2(inputs):
     pass
 
 def read_inputs():
-    with open('input.txt') as f:
+    import os
+    file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'input.txt')
+    with open(file) as f:
         return f.read().strip()
 
 def process(raw):

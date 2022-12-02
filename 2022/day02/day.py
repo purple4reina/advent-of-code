@@ -7,29 +7,19 @@
 # Z scissors
 
 def part1(inputs):
+    sym = {
+            'A': 1, 'B': 2, 'C': 3,
+            'X': 1, 'Y': 2, 'Z': 3,
+    }
     score = 0
     for you, me in inputs:
-        if you == 'A':
-            if me == 'X':
-                score += 1 + 3
-            if me == 'Y':
-                score += 2 + 6
-            if me == 'Z':
-                score += 3 + 0
-        if you =='B':
-            if me == 'X':
-                score += 1 + 0
-            if me == 'Y':
-                score += 2 + 3
-            if me == 'Z':
-                score += 3 + 6
-        if you == 'C':
-            if me == 'X':
-                score += 1 + 6
-            if me == 'Y':
-                score += 2 + 0
-            if me == 'Z':
-                score += 3 + 3
+        you, me = sym[you], sym[me]
+        score += me
+        res = (you - me) % 3
+        if res == 1:
+            score += 6
+        elif res == 2:
+            score += 3
     return score
 
 # A rock

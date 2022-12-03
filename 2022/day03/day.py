@@ -4,7 +4,8 @@ _vals = dict((l, i + 1) for i, l in
 
 def part1(inputs):
     total = 0
-    for one, two in inputs:
+    for sack in inputs:
+        one, two = sack[:len(sack)//2], sack[len(sack)//2:]
         o_items, t_items = {}, {}
         for o in one:
             o_items[o] = True
@@ -20,11 +21,10 @@ def part2(inputs):
         first, second, third = inputs.pop(), inputs.pop(), inputs.pop()
 
         items = {}
-        for item in first[0] + first[1]:
+        for item in first:
             items[item] = True
 
         for sack in (second, third):
-            sack = sack[0] + sack[1]
             new_items = {}
             for item in sack:
                 if items.get(item):
@@ -43,11 +43,7 @@ def read_inputs():
         return f.read().strip()
 
 def process(raw):
-    sacks = []
-    for sack in raw.split('\n'):
-        size = len(sack) // 2
-        sacks.append((sack[:size], sack[size:]))
-    return sacks
+    return raw.split('\n')
 
 if __name__ == '__main__':
     inputs = process(read_inputs())

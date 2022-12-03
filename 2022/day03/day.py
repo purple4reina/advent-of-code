@@ -16,22 +16,11 @@ def part1(inputs):
 def part2(inputs):
     total = 0
     while inputs:
-        first, second, third = inputs.pop(), inputs.pop(), inputs.pop()
-
-        items = {}
-        for item in first:
-            items[item] = True
-
-        for sack in (second, third):
-            new_items = {}
-            for item in sack:
-                if items.get(item):
-                    new_items[item] = True
-            items, new_items = new_items, {}
-
-        for k, _ in items.items():
-            total += _vals[k]
-
+        elf_1 = set(inputs.pop())
+        elf_2 = set(inputs.pop())
+        elf_3 = set(inputs.pop())
+        for item in elf_1 & elf_2 & elf_3:
+            total += _vals[item]
     return total
 
 def read_inputs():

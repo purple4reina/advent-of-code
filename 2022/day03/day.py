@@ -6,14 +6,11 @@ _vals = {
 def part1(inputs):
     total = 0
     for sack in inputs:
-        one, two = sack[:len(sack)//2], sack[len(sack)//2:]
-        o_items, t_items = {}, {}
-        for o in one:
-            o_items[o] = True
-        for t in two:
-            if not t_items.get(t) and o_items.get(t):
-                total += _vals[t]
-                t_items[t] = True
+        size = len(sack) // 2
+        pouch_1 = set(sack[:size])
+        pouch_2 = set(sack[size:])
+        for item in pouch_1 & pouch_2:
+            total += _vals[item]
     return total
 
 def part2(inputs):

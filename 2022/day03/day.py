@@ -1,6 +1,7 @@
-_vals = dict((l, i + 1) for i, l in
-             enumerate('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'))
-
+_vals = {
+        l: i + 1 for i, l in enumerate(
+            'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+}
 
 def part1(inputs):
     total = 0

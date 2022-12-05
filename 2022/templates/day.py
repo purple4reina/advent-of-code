@@ -14,6 +14,6 @@ def process(raw):
     return list(map(int, raw.split()))
 
 if __name__ == '__main__':
-    inputs = process(read_inputs())
-    print(part1(inputs))
-    print(part2(inputs))
+    read = read_inputs()
+    print(part1(process(read)))
+    print(part2(process(read)))

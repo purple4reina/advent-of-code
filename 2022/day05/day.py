@@ -8,17 +8,11 @@ def part1(inputs):
 
 def part2(inputs):
     yard, moves = inputs
-    for y in yard:
-        print(y)
     for num, frm, to in moves:
         frm, to = frm - 1, to - 1
-        print('num,frm,to: ', num,frm,to)
         crates = yard[frm][-num:]
-        print('crates: ', crates)
         yard[frm][-num:] = []
         yard[to].extend(crates)
-        for y in yard:
-            print(y)
     return ''.join(s[-1] for s in yard)
 
 def read_inputs():
@@ -29,8 +23,6 @@ def read_inputs():
 
 def process(raw):
     stacks, procedures = raw.split('\n\n')
-    print('stacks: ', stacks)
-    print('procedures: ', procedures)
 
     # crates
     cols = int(stacks.split('\n')[-1].split()[-1])
@@ -57,6 +49,6 @@ def process(raw):
     return yard, moves
 
 if __name__ == '__main__':
-    inputs = process(read_inputs())
-    #print(part1(inputs))
-    print(part2(inputs))
+    read = read_inputs()
+    print(part1(process(read)))
+    print(part2(process(read)))

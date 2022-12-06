@@ -1,22 +1,16 @@
-def part1(inputs):
-    _1 = _2 = _3 = _4 = None
-    for i in range(len(inputs)):
-        _1, _2, _3, _4 = _2, _3, _4, inputs[i]
-        if i < 4:
-            continue
-        if len(set((_1, _2, _3, _4))) == 4:
-            return i + 1
+def part_factory(length):
+    def part(inputs):
+        msg = [None] * length
+        for i in range(len(inputs)):
+            msg[:] = msg[1:] + [inputs[i]]
+            if i < length:
+                continue
+            if len(set(msg)) == length:
+                return i + 1
+    return part
 
-def part2(inputs):
-    _1 = _2 = _3 = _4 = _5 = _6 = _7 = _8 = _9 = _10 = _11 = _12 = _13 = _14 = None
-    for i in range(len(inputs)):
-        _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14 = (
-            _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, inputs[i])
-        if i < 14:
-            continue
-        if len(set((_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13,
-                    _14))) == 14:
-            return i + 1
+part1 = part_factory(4)
+part2 = part_factory(14)
 
 def read_inputs():
     import os

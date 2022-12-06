@@ -23,7 +23,6 @@ def test_part1(raw, expect):
     inputs = process(raw)
     assert expect == part1(inputs)
 
-
 _test_part2 = (
         (_test_input, _test_part2_expect),
         ('bvwbjplbgvbhsrlpgdmjqwftvncz', 23),

@@ -1,10 +1,7 @@
 def part_factory(length):
     def part(inputs):
-        msg = [None] * length
-        for i in range(len(inputs)):
-            msg[:] = msg[1:] + [inputs[i]]
-            if i < length - 1:
-                continue
+        for i in range(length-1, len(inputs)):
+            msg = inputs[i-length+1:i+1]
             if len(set(msg)) == length:
                 return i + 1
     return part

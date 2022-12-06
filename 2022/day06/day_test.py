@@ -1,4 +1,6 @@
 import pytest
+import string
+
 from day import part1, part2, process
 
 _test_input = """
@@ -28,6 +30,7 @@ _test_part2 = (
         ('nppdvjthqldpwncqszvftbrmjlhg', 23),
         ('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 29),
         ('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 26),
+        (string.ascii_lowercase, 14),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part2)

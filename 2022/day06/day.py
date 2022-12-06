@@ -3,7 +3,7 @@ def part_factory(length):
         msg = [None] * length
         for i in range(len(inputs)):
             msg[:] = msg[1:] + [inputs[i]]
-            if i < length:
+            if i < length - 1:
                 continue
             if len(set(msg)) == length:
                 return i + 1

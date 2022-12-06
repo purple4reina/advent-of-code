@@ -13,6 +13,7 @@ _test_part1 = (
         ('nppdvjthqldpwncqszvftbrmjlhg', 6),
         ('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 10),
         ('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 11),
+        ('abcd', 4),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part1)

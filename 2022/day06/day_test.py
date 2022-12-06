@@ -7,13 +7,32 @@ mjqjpqmgbljsphdztnvjfqwrcgsmlb
 _test_part1_expect = 7
 _test_part2_expect = 19
 
-def test_part1():
-    inputs = process(_test_input)
-    assert _test_part1_expect == part1(inputs)
+_test_part1 = (
+        (_test_input, _test_part1_expect),
+        ('bvwbjplbgvbhsrlpgdmjqwftvncz', 5),
+        ('nppdvjthqldpwncqszvftbrmjlhg', 6),
+        ('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 10),
+        ('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 11),
+)
 
-def test_part2():
-    inputs = process(_test_input)
-    assert _test_part2_expect == part2(inputs)
+@pytest.mark.parametrize('raw,expect', _test_part1)
+def test_part1(raw, expect):
+    inputs = process(raw)
+    assert expect == part1(inputs)
+
+
+_test_part2 = (
+        (_test_input, _test_part2_expect),
+        ('bvwbjplbgvbhsrlpgdmjqwftvncz', 23),
+        ('nppdvjthqldpwncqszvftbrmjlhg', 23),
+        ('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 29),
+        ('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 26),
+)
+
+@pytest.mark.parametrize('raw,expect', _test_part2)
+def test_part2(raw, expect):
+    inputs = process(raw)
+    assert expect == part2(inputs)
 
 with open('input.txt') as f:
     _actual_inputs = f.read()

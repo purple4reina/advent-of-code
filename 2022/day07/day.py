@@ -20,7 +20,7 @@ def part1(inputs):
                 curdir[cmds[1]] = int(cmds[0])
 
     # find directories <= 100000
-    totals = [0]
+    totals = []
     def size_of_dir(this_name, this_val):
         if isinstance(this_val, int):
             return this_val
@@ -30,11 +30,11 @@ def part1(inputs):
                 continue
             total += size_of_dir(next_name, next_val)
         if total <= 100000:
-            totals[0] += total
+            totals.append(total)
         return total
 
     size_of_dir('/', filesys)
-    return totals[0]
+    return sum(totals)
 
 def part2(inputs):
     filesys = curdir = {}
@@ -58,8 +58,7 @@ def part2(inputs):
                 curdir[cmds[1]] = int(cmds[0])
 
     # find directories <= 100000
-    totals = [float('inf')]
-    must_free = 0
+    totals = []
     def size_of_dir(this_name, this_val):
         if isinstance(this_val, int):
             return this_val
@@ -68,14 +67,12 @@ def part2(inputs):
             if next_name == '..' or next_name == '/':
                 continue
             total += size_of_dir(next_name, next_val)
-        if must_free and total >= must_free:
-            totals[0] = min(totals[0], total)
+        totals.append(total)
         return total
 
     total_size = size_of_dir('/', filesys)
     must_free = total_size - 40000000
-    size_of_dir('/', filesys)
-    return totals[0]
+    return min(t for t in totals if t > must_free)
 
 def read_inputs():
     import os

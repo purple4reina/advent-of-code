@@ -1,61 +1,16 @@
-def part1(inputs):
+def size_of_dir(inputs):
     filesys = curdir = {}
     filesys['/'] = filesys
 
     # construct file system
     for cmd in inputs:
-        cmds = cmd.split()
-        if cmds[0] == '$':
-            if cmds[1] == 'cd':  # $ cd name
-                curdir = curdir[cmds[2]]
-            else:  # $ ls
-                pass
-        else:
-            if cmds[0] == 'dir':  # dir, name
-                curdir[cmds[1]] = {
-                        '/': filesys,
-                        '..': curdir,
-                }
-            else:  # size, name
-                curdir[cmds[1]] = int(cmds[0])
-
-    # find directories <= 100000
-    totals = []
-    def size_of_dir(this_name, this_val):
-        if isinstance(this_val, int):
-            return this_val
-        total = 0
-        for next_name, next_val in this_val.items():
-            if next_name == '..' or next_name == '/':
-                continue
-            total += size_of_dir(next_name, next_val)
-        if total <= 100000:
-            totals.append(total)
-        return total
-
-    size_of_dir('/', filesys)
-    return sum(totals)
-
-def part2(inputs):
-    filesys = curdir = {}
-    filesys['/'] = filesys
-
-    # construct file system
-    for cmd in inputs:
-        cmds = cmd.split()
-        if cmds[0] == '$':
-            if cmds[1] == 'cd':  # $ cd name
-                curdir = curdir[cmds[2]]
-            else:  # $ ls
-                pass
-        else:
-            if cmds[0] == 'dir':  # dir, name
-                curdir[cmds[1]] = {
-                        '/': filesys,
-                        '..': curdir,
-                }
-            else:  # size, name
-                curdir[cmds[1]] = int(cmds[0])
+        if cmd.startswith('$ cd'):
+            _, c, v = cmd.split()
+            if c == 'cd':  # $ cd name
+                curdir = curdir[v]
+        elif not cmd.startswith('$'):
+            t, n = cmd.split()
+            curdir[n] = {'/': filesys, '..': curdir} if t == 'dir' else int(t)
 
     # find directories <= 100000
     totals = []
@@ -70,7 +25,14 @@ def part2(inputs):
         totals.append(total)
         return total
 
-    total_size = size_of_dir('/', filesys)
+    return size_of_dir('/', filesys), totals
+
+def part1(inputs):
+    _, totals = size_of_dir(inputs)
+    return sum(t for t in totals if t <= 100000)
+
+def part2(inputs):
+    total_size, totals = size_of_dir(inputs)
     must_free = total_size - 40000000
     return min(t for t in totals if t > must_free)
 

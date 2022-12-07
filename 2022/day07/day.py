@@ -6,7 +6,7 @@ def size_of_dir(inputs):
     for cmd in inputs:
         if cmd.startswith('$ cd'):
             _, c, v = cmd.split()
-            if c == 'cd':  # $ cd name
+            if c == 'cd':
                 curdir = curdir[v]
         elif not cmd.startswith('$'):
             t, n = cmd.split()

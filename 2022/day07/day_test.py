@@ -2,6 +2,9 @@ import pytest
 
 from day import part1, part2, process
 
+with open('input.txt') as f:
+    _actual_inputs = f.read()
+
 _test_input = """
 $ cd /
 $ ls
@@ -32,6 +35,7 @@ _test_part2_expect = 24933642
 
 _test_part1 = (
         (_test_input, _test_part1_expect),
+        (_actual_inputs, 1648397),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part1)
@@ -41,15 +45,13 @@ def test_part1(raw, expect):
 
 _test_part2 = (
         (_test_input, _test_part2_expect),
+        (_actual_inputs, 1815525),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part2)
 def test_part2(raw, expect):
     inputs = process(raw)
     assert expect == part2(inputs)
-
-with open('input.txt') as f:
-    _actual_inputs = f.read()
 
 _part1_wrong_answers = (
         1172073,

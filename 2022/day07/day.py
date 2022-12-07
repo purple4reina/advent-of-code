@@ -12,7 +12,7 @@ def size_of_dir(inputs):
             t, n = cmd.split()
             curdir[n] = {'/': filesys, '..': curdir} if t == 'dir' else int(t)
 
-    # find directories <= 100000
+    # find directory sizes
     totals = []
     def size_of_dir(this_name, this_val):
         if isinstance(this_val, int):

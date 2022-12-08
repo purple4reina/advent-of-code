@@ -5,31 +5,18 @@ def part1(inputs):
     total = 0
     for i in range(size):
         for j in range(size):
-            if i == 0 or j == 0 or i == size - 1 or j == size - 1:
-                total += 1
-                continue
-
             tree = inputs[i,j]
+            directions = (
+                    inputs[:i,j],
+                    inputs[i+1:,j],
+                    inputs[i,:j],
+                    inputs[i,j+1:],
+            )
 
-            # up
-            if max(inputs[:i,j]) < tree:
-                total += 1
-                continue
-
-            # down
-            if max(inputs[i+1:,j]) < tree:
-                total += 1
-                continue
-
-            # left
-            if max(inputs[i,:j]) < tree:
-                total += 1
-                continue
-
-            # right
-            if max(inputs[i,j+1:]) < tree:
-                total += 1
-                continue
+            for dr in directions:
+                if all(dr < tree):
+                    total += 1
+                    break
 
     return total
 

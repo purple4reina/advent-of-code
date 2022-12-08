@@ -7,6 +7,9 @@ _test_input = """
 _test_part1_expect = None
 _test_part2_expect = None
 
+with open('input.txt') as f:
+    _actual_inputs = f.read()
+
 _test_part1 = (
         (_test_input, _test_part1_expect),
 )
@@ -24,9 +27,6 @@ _test_part2 = (
 def test_part2(raw, expect):
     inputs = process(raw)
     assert expect == part2(inputs)
-
-with open('input.txt') as f:
-    _actual_inputs = f.read()
 
 _part1_wrong_answers = (
 )

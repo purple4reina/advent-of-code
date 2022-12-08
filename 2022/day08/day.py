@@ -42,14 +42,13 @@ def part2(inputs):
             prod = 1
 
             directions = (
-                    list(reversed(inputs[:i,j])),
-                    list(inputs[i+1:,j]),
-                    list(reversed(inputs[i,:j])),
-                    list(inputs[i,j+1:]),
+                    inputs[:i,j][::-1],
+                    inputs[i+1:,j],
+                    inputs[i,:j][::-1],
+                    inputs[i,j+1:],
             )
 
             for dr in directions:
-                dr_size = len(dr)
                 for k, t in enumerate(dr):
                     if t >= tree:
                         prod *= k + 1

@@ -10,7 +10,7 @@ _test_input = """
 35390
 """.strip()
 _test_part1_expect = 21
-_test_part2_expect = None
+_test_part2_expect = 8
 
 _test_part1 = (
         (_test_input, _test_part1_expect),

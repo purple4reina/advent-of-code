@@ -12,8 +12,12 @@ _test_input = """
 _test_part1_expect = 21
 _test_part2_expect = 8
 
+with open('input.txt') as f:
+    _actual_inputs = f.read()
+
 _test_part1 = (
         (_test_input, _test_part1_expect),
+        (_actual_inputs, 1818),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part1)
@@ -23,15 +27,13 @@ def test_part1(raw, expect):
 
 _test_part2 = (
         (_test_input, _test_part2_expect),
+        (_actual_inputs, 368368),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part2)
 def test_part2(raw, expect):
     inputs = process(raw)
     assert expect == part2(inputs)
-
-with open('input.txt') as f:
-    _actual_inputs = f.read()
 
 _part1_wrong_answers = (
 )

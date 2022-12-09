@@ -1,17 +1,13 @@
+directions = {'R': (1, 0), 'L': (-1, 0), 'U': (0, 1), 'D': (0, -1)}
+
 def part1(inputs):
     hx = hy = tx = ty = 0
     visited = {(0, 0): True}
     for d, n in inputs:
         for _ in range(n):
             # update head
-            if d == 'R':
-                hx += 1
-            if d == 'L':
-                hx -= 1
-            if d == 'U':
-                hy += 1
-            if d == 'D':
-                hy -= 1
+            dx, dy = directions[d]
+            hx, hy = hx + dx, hy + dy
 
             # update tail
             x_within_1, y_within_1 = abs(hx - tx) <= 1, abs(hy - ty) <= 1

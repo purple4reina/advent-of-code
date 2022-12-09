@@ -20,6 +20,7 @@ with open('input.txt') as f:
 
 _test_part1 = (
         (_test_input, _test_part1_expect),
+        (_actual_inputs, 6271),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part1)
@@ -41,6 +42,7 @@ U 20
 _test_part2 = (
         (_test_input, _test_part2_expect),
         (_test_part2_second_example, 36),
+        (_actual_inputs, 2458),
 )
 
 @pytest.mark.parametrize('raw,expect', _test_part2)

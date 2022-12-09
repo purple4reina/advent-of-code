@@ -43,7 +43,7 @@ def part1(inputs):
     return len(visited)
 
 def part2(inputs):
-    knots = [[0, 0] for _ in range(10)]
+    knots = [(0, 0) for _ in range(10)]
     visited = {(0, 0): True}
     for d, n in inputs:
         for _ in range(n):
@@ -64,30 +64,29 @@ def part2(inputs):
 
                 if x_within_1 and y_within_1:
                     pass
-                elif same_column and not y_within_1:
-                    if hy > ty:
-                        knots[i][1] += 1
-                    else:
-                        knots[i][1] -= 1
                 elif same_row and not x_within_1:
                     if hx > tx:
-                        knots[i][0] += 1
+                        tx += 1
                     else:
-                        knots[i][0] -= 1
-                else:
+                        tx -= 1
+                elif same_column and not y_within_1:
                     if hy > ty:
-                        knots[i][1] += 1
+                        ty += 1
                     else:
-                        knots[i][1] -= 1
+                        ty -= 1
+                else:
                     if hx > tx:
-                        knots[i][0] += 1
+                        tx += 1
                     else:
-                        knots[i][0] -= 1
+                        tx -= 1
+                    if hy > ty:
+                        ty += 1
+                    else:
+                        ty -= 1
 
-                hx, hy = knots[i]
+                hx, hy = knots[i] = (tx, ty)
             visited[(tx, ty)] = True
-
-    return len(visited) + 1
+    return len(visited)
 
 def read_inputs():
     import os

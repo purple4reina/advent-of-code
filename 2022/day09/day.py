@@ -4,9 +4,9 @@ def part1(inputs):
     hx = hy = tx = ty = 0
     visited = {(0, 0): True}
     for d, n in inputs:
+        dx, dy = directions[d]
         for _ in range(n):
             # update head
-            dx, dy = directions[d]
             hx, hy = hx + dx, hy + dy
 
             # update tail

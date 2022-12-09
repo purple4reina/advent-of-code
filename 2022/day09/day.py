@@ -42,16 +42,11 @@ def part2(inputs):
     knots = [(0, 0) for _ in range(10)]
     visited = {(0, 0): True}
     for d, n in inputs:
+        dx, dy = directions[d]
+        dx, dy = 2*dx, 2*dy
         for _ in range(n):
             hx, hy = knots[0]
-            if d == 'R':
-                hx += 2
-            if d == 'L':
-                hx -= 2
-            if d == 'U':
-                hy += 2
-            if d == 'D':
-                hy -= 2
+            hx, hy = hx + dx, hy + dy
 
             for i in range(10):
                 tx, ty = knots[i]

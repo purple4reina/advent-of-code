@@ -65,24 +65,12 @@ def part2(inputs):
                 if x_within_1 and y_within_1:
                     pass
                 elif same_row and not x_within_1:
-                    if hx > tx:
-                        tx += 1
-                    else:
-                        tx -= 1
+                    tx += 1 if hx > tx else -1
                 elif same_column and not y_within_1:
-                    if hy > ty:
-                        ty += 1
-                    else:
-                        ty -= 1
+                    ty += 1 if hy > ty else -1
                 else:
-                    if hx > tx:
-                        tx += 1
-                    else:
-                        tx -= 1
-                    if hy > ty:
-                        ty += 1
-                    else:
-                        ty -= 1
+                    tx += 1 if hx > tx else -1
+                    ty += 1 if hy > ty else -1
 
                 hx, hy = knots[i] = (tx, ty)
             visited[(tx, ty)] = True

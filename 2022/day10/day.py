@@ -1,30 +1,22 @@
 def part1(inputs):
-    cnt = total = 0
-    cnt = 1
-    val = 1
-    vals = [1]
+    total, cnt, val, vals = 0, 1, 1, [1]
     indexes = (20, 60, 100, 140, 180, 220)
     for cmd in inputs:
         if cmd == 'noop':
             cnt += 1
             vals.append(val)
             if cnt in indexes:
-                print('cnt,val,cnt*val: ', cnt,val,cnt*val)
                 total += cnt * val
         else:
             cnt += 1
             vals.append(val)
             if cnt in indexes:
-                print('cnt,val,cnt*val: ', cnt,val,cnt*val)
                 total += cnt * val
             cnt += 1
-            print('int(cmd[5:]): ', int(cmd[5:]))
             val += int(cmd[5:])
             vals.append(val)
             if cnt in indexes:
-                print('cnt,val,cnt*val: ', cnt,val,cnt*val)
                 total += cnt * val
-    print('vals: ', vals)
     return total
 
 def part2(inputs):

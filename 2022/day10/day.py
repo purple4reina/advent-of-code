@@ -1,23 +1,29 @@
 def part1(inputs):
-    total, cnt, val, vals = 0, 1, 1, [1]
-    indexes = (20, 60, 100, 140, 180, 220)
+
+    class State(object):
+        indexes = (20, 60, 100, 140, 180, 220)
+        def __init__(self):
+            self.count = 1
+            self.total = 0
+            self.value = 1
+            self.values = [1]
+        def incr_cnt(self):
+            self.count += 1
+            self.values.append(self.value)
+            if self.count in self.indexes:
+                self.total += self.count * self.value
+        def incr_val_cnt(self, val):
+            self.value += val
+            self.incr_cnt()
+
+    state = State()
     for cmd in inputs:
         if cmd == 'noop':
-            cnt += 1
-            vals.append(val)
-            if cnt in indexes:
-                total += cnt * val
+            state.incr_cnt()
         else:
-            cnt += 1
-            vals.append(val)
-            if cnt in indexes:
-                total += cnt * val
-            cnt += 1
-            val += int(cmd[5:])
-            vals.append(val)
-            if cnt in indexes:
-                total += cnt * val
-    return total
+            state.incr_cnt()
+            state.incr_val_cnt(int(cmd[5:]))
+    return state.total
 
 def part2(inputs):
     pass

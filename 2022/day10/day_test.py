@@ -151,7 +151,12 @@ noop
 noop
 """.strip()
 _test_part1_expect = 13140
-_test_part2_expect = None
+_test_part2_expect = """##..##..##..##..##..##..##..##..##..##..
+###...###...###...###...###...###...###.
+####....####....####....####....####....
+#####.....#####.....#####.....#####.....
+######......######......######......####
+#######.......#######.......#######....."""
 
 with open('input.txt') as f:
     _actual_inputs = f.read()
@@ -172,7 +177,8 @@ _test_part2 = (
 @pytest.mark.parametrize('raw,expect', _test_part2)
 def test_part2(raw, expect):
     inputs = process(raw)
-    assert expect == part2(inputs)
+    actual = part2(inputs)
+    assert expect == actual
 
 _part1_wrong_answers = (
 )

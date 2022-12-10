@@ -26,7 +26,34 @@ def part1(inputs):
     return state.total
 
 def part2(inputs):
-    pass
+
+    class State(object):
+        def __init__(self):
+            self.cycle = self.value = self.sprite = 1
+            self.crt = [1] + [0] * 241
+        def noop(self):
+            self.sprite = self.cycle % 40
+            self.crt[self.cycle] = abs(self.sprite - self.value) < 2
+            self.cycle += 1
+        def addx(self, val):
+            self.noop()
+            self.value += val
+            self.noop()
+        @property
+        def screen(self):
+            crt = []
+            for i in range(0, 40*6, 40):
+                crt.append(''.join(
+                    ('#' if b else '.' for b in self.crt[i:i+40])))
+            return '\n'.join(crt)
+
+    state = State()
+    for cmd in inputs:
+        if cmd == 'noop':
+            state.noop()
+        else:
+            state.addx(int(cmd[5:]))
+    return state.screen
 
 def read_inputs():
     import os

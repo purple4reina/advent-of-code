@@ -32,7 +32,7 @@ Monkey 3:
     If false: throw to monkey 1
 """.strip()
 _test_part1_expect = 10605
-_test_part2_expect = None
+_test_part2_expect = 2713310158
 
 with open('input.txt') as f:
     _actual_inputs = f.read()

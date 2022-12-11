@@ -1,22 +1,22 @@
-def part1(monkeys):
-    for _ in range(20):
+def part1(monkeys, rounds=20):
+    for _ in range(rounds):
         for monkey in monkeys:
             for next_monkey, item in monkey.run():
                 monkeys[next_monkey].items.append(item)
     one, two = sorted([m.inspected for m in monkeys])[-2:]
     return one * two
 
-def part2(inputs):
-    pass
+def part2(monkeys):
+    for m in monkeys:
+        m.div = 1
+    return part1(monkeys, rounds=10000)
 
 class Monkey(object):
 
-    def __init__(self, index):
+    def __init__(self, index, div=3):
         self.index = index
         self.inspected = 0
-
-    def operate(self, item):
-        return self.operation(item)
+        self.div = div
 
     def test(self, item):
         if self.condition(item):
@@ -27,8 +27,8 @@ class Monkey(object):
         while self.items:
             self.inspected += 1
             item = self.items.pop(0)
-            item = self.operate(item)
-            item //= 3
+            item = self.operation(item)
+            item //= self.div
             yield self.test(item), item
 
 def read_inputs():
@@ -39,9 +39,17 @@ def read_inputs():
 
 def process(raw):
     def make_operation(inputs):
-        def operate(old):
-            return eval(inputs)
-        return operate
+        _, op, num = inputs.split()
+        if op == '+':
+            if num == 'old':
+                return lambda a: a + a
+            num = int(num)
+            return lambda a: a + num
+        else:
+            if num == 'old':
+                return lambda a: a**2
+            num = int(num)
+            return lambda a: a * num
 
     def make_test(den):
         def test(num):

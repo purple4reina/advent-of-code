@@ -1,15 +1,13 @@
-def part1(monkeys, rounds=20):
+def part1(monkeys, rounds=20, self_managed=False):
     for _ in range(rounds):
         for monkey in monkeys:
-            for next_monkey, item in monkey.run():
+            for next_monkey, item in monkey.run(self_managed=self_managed):
                 monkeys[next_monkey].items.append(item)
     one, two = sorted([m.inspected for m in monkeys])[-2:]
     return one * two
 
 def part2(monkeys):
-    for m in monkeys:
-        m.div = 1
-    return part1(monkeys, rounds=10000)
+    return part1(monkeys, rounds=10000, self_managed=True)
 
 class Monkey(object):
 
@@ -23,12 +21,17 @@ class Monkey(object):
             return self.true
         return self.false
 
-    def run(self):
+    def manage_worry(self, item, self_managed=False):
+        if not self_managed:
+            return item // self.div
+        return item
+
+    def run(self, self_managed=False):
         while self.items:
             self.inspected += 1
             item = self.items.pop(0)
             item = self.operation(item)
-            item //= self.div
+            item = self.manage_worry(item, self_managed=self_managed)
             yield self.test(item), item
 
 def read_inputs():

@@ -60,6 +60,12 @@ def process(raw):
     return hmap, divmod(start, width), divmod(end, width)
 
 if __name__ == '__main__':
+    inputs = process('Sabqponm\nabcryxxl\naccszExk\nacctuvwj\nabdefghi')
+    for _ in range(2000):
+        part1(inputs)
+    exit(0)
+
+
     read = read_inputs()
     print(part1(process(read)))
     print(part2(process(read)))

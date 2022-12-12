@@ -2,7 +2,7 @@ def part1(inputs):
     hmap, (locy, locx), (endy, endx) = inputs
     height, width = len(hmap), len(hmap[0])
 
-    def travel(locx, locy, elev, visited):
+    def travel(locx, locy, visited):
         if (locx, locy) in visited:
             return float('inf')
         visited = visited + ((locx, locy),)
@@ -11,28 +11,27 @@ def part1(inputs):
             return 0
 
         shortest = float('inf')
+        elev = hmap[locy][locx]
         for x in (-1, 1):
             newx = locx + x
             if newx >= 0 and newx < width:
-                new_elev = hmap[locy][newx]
-                if new_elev - elev > 1:
+                if hmap[locy][newx] - elev > 1:
                     continue
-                val = travel(newx, locy, new_elev, visited) + 1
+                val = travel(newx, locy, visited) + 1
                 shortest = min(shortest, val)
 
         for y in (-1, 1):
             newy = locy + y
             if newy >= 0 and newy < height:
-                new_elev = hmap[newy][locx]
-                if new_elev - elev > 1:
+                if hmap[newy][locx] - elev > 1:
                     continue
-                val = travel(locx, newy, new_elev, visited) + 1
+                val = travel(locx, newy, visited) + 1
                 shortest = min(shortest, val)
 
         return shortest
 
     visited = {}
-    return travel(locx, locy, 0, ())
+    return travel(locx, locy, ())
 
 def part2(inputs):
     pass

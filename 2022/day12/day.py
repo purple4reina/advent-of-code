@@ -1,5 +1,8 @@
+import sys
+sys.setrecursionlimit(45000)
+
 def part1(inputs):
-    hmap, (locy, locx), (endy, endx) = inputs
+    hmap, (sary, sarx), (locy, locx) = inputs
     height, width = len(hmap), len(hmap[0])
 
     def travel(locx, locy, visited):
@@ -7,7 +10,7 @@ def part1(inputs):
             return float('inf')
         visited = visited + ((locx, locy),)
 
-        if locx == endx and locy == endy:
+        if locx == sarx and locy == sary:
             return 0
 
         shortest = float('inf')
@@ -15,7 +18,7 @@ def part1(inputs):
         for x in (-1, 1):
             newx = locx + x
             if newx >= 0 and newx < width:
-                if hmap[locy][newx] - elev > 1:
+                if hmap[locy][newx] - elev < -1:
                     continue
                 val = travel(newx, locy, visited) + 1
                 shortest = min(shortest, val)
@@ -23,7 +26,7 @@ def part1(inputs):
         for y in (-1, 1):
             newy = locy + y
             if newy >= 0 and newy < height:
-                if hmap[newy][locx] - elev > 1:
+                if hmap[newy][locx] - elev < -1:
                     continue
                 val = travel(locx, newy, visited) + 1
                 shortest = min(shortest, val)

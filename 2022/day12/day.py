@@ -2,7 +2,7 @@ import sys
 sys.setrecursionlimit(45000)
 
 def part1(inputs):
-    hmap, (sary, sarx), (locy, locx) = inputs
+    hmap, (sary, sarx), (endy, endx) = inputs
     height, width = len(hmap), len(hmap[0])
 
     def travel(locx, locy, visited):
@@ -34,7 +34,7 @@ def part1(inputs):
         return shortest
 
     visited = {}
-    return travel(locx, locy, ())
+    return travel(endx, endy, ())
 
 def part2(inputs):
     pass

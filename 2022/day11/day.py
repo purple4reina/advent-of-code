@@ -44,18 +44,33 @@ def read_inputs():
         return f.read().strip()
 
 def process(raw):
+
+    def add_const(b):
+        def add(a):
+            return a + b
+        return add
+
+    def add_self(a):
+        return a + a
+
+    def mult_const(b):
+        def mult(a):
+            return a * b
+        return mult
+
+    def mult_self(a):
+        return a * a
+
     def make_operation(inputs):
         _, op, num = inputs.split()
         if op == '+':
             if num == 'old':
-                return lambda a: a + a
-            num = int(num)
-            return lambda a: a + num
+                return add_self
+            return add_const(int(num))
         else:
             if num == 'old':
-                return lambda a: a**2
-            num = int(num)
-            return lambda a: a * num
+                return mult_self
+            return mult_const(int(num))
 
     def make_test(den):
         def test(num):

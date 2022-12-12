@@ -34,6 +34,7 @@ def test_part2(raw, expect):
     assert expect == part2(inputs)
 
 _part1_wrong_answers = (
+        437,
 )
 
 @pytest.mark.parametrize('ans', _part1_wrong_answers)

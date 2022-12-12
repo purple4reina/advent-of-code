@@ -5,8 +5,7 @@ def part1(inputs):
     def travel(locx, locy, elev, visited):
         if (locx, locy) in visited:
             return float('inf')
-        visited = visited.copy()
-        visited.append((locx, locy))
+        visited = visited + ((locx, locy),)
 
         if locx == endx and locy == endy:
             return 0
@@ -33,7 +32,7 @@ def part1(inputs):
         return shortest
 
     visited = {}
-    return travel(locx, locy, 0, [])
+    return travel(locx, locy, 0, ())
 
 def part2(inputs):
     pass

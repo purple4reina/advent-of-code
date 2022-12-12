@@ -1,13 +1,16 @@
-def part1(monkeys, rounds=20, self_managed=False):
+def part1(monkeys):
+    return monkey_business(monkeys, rounds=20, self_managed=False)
+
+def part2(monkeys):
+    return monkey_business(monkeys, rounds=10000, self_managed=True)
+
+def monkey_business(monkeys, rounds=20, self_managed=False):
     for _ in range(rounds):
         for monkey in monkeys:
             for next_monkey, item in monkey.run(self_managed=self_managed):
                 monkeys[next_monkey].items.append(item)
     one, two = sorted([m.inspected for m in monkeys])[-2:]
     return one * two
-
-def part2(monkeys):
-    return part1(monkeys, rounds=10000, self_managed=True)
 
 class Monkey(object):
 

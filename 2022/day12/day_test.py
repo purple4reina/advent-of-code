@@ -3,8 +3,13 @@ import pytest
 from day import part1, part2, process
 
 _test_input = """
+Sabqponm
+abcryxxl
+accszExk
+acctuvwj
+abdefghi
 """.strip()
-_test_part1_expect = None
+_test_part1_expect = 31
 _test_part2_expect = None
 
 with open('input.txt') as f:

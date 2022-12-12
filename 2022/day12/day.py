@@ -20,20 +20,19 @@ def part1(inputs):
             if newx >= 0 and newx < width:
                 if hmap[locy][newx] - elev < -1:
                     continue
-                val = travel(newx, locy, visited) + 1
-                shortest = min(shortest, val)
+                val = travel(newx, locy, visited)
+                shortest = min(shortest, val + 1)
 
         for y in (-1, 1):
             newy = locy + y
             if newy >= 0 and newy < height:
                 if hmap[newy][locx] - elev < -1:
                     continue
-                val = travel(locx, newy, visited) + 1
-                shortest = min(shortest, val)
+                val = travel(locx, newy, visited)
+                shortest = min(shortest, val + 1)
 
         return shortest
 
-    visited = {}
     return travel(endx, endy, ())
 
 def part2(inputs):

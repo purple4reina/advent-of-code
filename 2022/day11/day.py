@@ -14,6 +14,8 @@ def monkey_business(monkeys, rounds=20, self_managed=False):
 
 class Monkey(object):
 
+    prod = 1
+
     def __init__(self, index, div=3):
         self.index = index
         self.inspected = 0
@@ -27,7 +29,7 @@ class Monkey(object):
     def manage_worry(self, item, self_managed=False):
         if not self_managed:
             return item // self.div
-        return item
+        return item % self.prod
 
     def run(self, self_managed=False):
         while self.items:
@@ -87,7 +89,9 @@ def process(raw):
         elif row.startswith('Operation'):
             monkey.operation = make_operation(row.split(' = ')[1])
         elif row.startswith('Test'):
-            monkey.condition = make_test(int(row.split(' by ')[1]))
+            prime = int(row.split(' by ')[1])
+            Monkey.prod *= prime
+            monkey.condition = make_test(prime)
         elif row.startswith('If true'):
             monkey.true = int(row[-1])
         elif row.startswith('If false'):

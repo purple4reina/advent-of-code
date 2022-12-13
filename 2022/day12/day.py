@@ -31,7 +31,42 @@ def part1(inputs):
         last_visited, new_visited, step = new_visited, [], step + 1
 
 def part2(inputs):
-    pass
+    hmap, (begy, begx), (endy, endx) = inputs
+    height, width = len(hmap), len(hmap[0])
+
+    # start with S
+    # for each location in the set
+    #   for each unvisited neighbor of this location
+    #       if this neighbor is the end, we're done
+    #       set the value (+1 from the prev value) in vmap
+
+    def unvisited_neighbors(locx, locy):
+        for newx, newy in [
+                (locx-1, locy), (locx+1, locy), (locx, locy-1), (locx, locy+1)]:
+            if newx < 0 or newx >= width or newy < 0 or newy >= height:
+                continue
+            if vmap[newy][newx] is not None:
+                continue
+            if hmap[newy][newx] - hmap[locy][locx] > 1:
+                continue
+            yield newx, newy
+
+    shortest = float('inf')
+    for y in range(height):
+        for x in range(width):
+            if hmap[y][x] != 0:
+                continue
+            vmap = [[None for _ in range(width)] for _ in range(height)]
+            last_visited, new_visited, step = [(x, y)], [], 1
+            while last_visited:
+                for locx, locy in last_visited:
+                    for newx, newy in unvisited_neighbors(locx, locy):
+                        if newx == endx and newy == endy:
+                            shortest = min(shortest, step)
+                        vmap[newy][newx] = step
+                        new_visited.append((newx, newy))
+                last_visited, new_visited, step = new_visited, [], step + 1
+    return shortest
 
 def read_inputs():
     import os

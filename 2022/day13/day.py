@@ -33,10 +33,12 @@ def correct_order(left, right):
     return lleft < lright
 
 def correct_indexes(inputs):
-    indexes = []
-    for i, (left, right) in enumerate(inputs):
+    index, indexes = 1, []
+    while inputs:
+        left, right = inputs.pop(0), inputs.pop(0)
         if correct_order(left, right):
-            indexes.append(i + 1)
+            indexes.append(index)
+        index += 1
     return indexes
 
 def as_sort_key(fn):
@@ -53,26 +55,12 @@ def part1(inputs):
     return sum(correct_indexes(inputs))
 
 def part2(inputs):
-    inp = []
-    for a, b in inputs:
-        inp.append(a)
-        inp.append(b)
+    divider1, divider2 = [[2]], [[6]]
+    inputs.append(divider1)
+    inputs.append(divider2)
 
-    divider1 = [[2]]
-    divider2 = [[6]]
-    inp.append(divider1)
-    inp.append(divider2)
-
-    print('--------------------inp--------------------')
-    for i in inp:
-        print(i)
-
-    sorted_inputs = sorted(
-            inp, key=functools.cmp_to_key(as_sort_key(correct_order)),
-            reverse=True)
-    print('--------------------sorted--------------------')
-    for s in sorted_inputs:
-        print(s)
+    sort_key = functools.cmp_to_key(as_sort_key(correct_order))
+    sorted_inputs = sorted(inputs, key=sort_key, reverse=True)
 
     index1 = sorted_inputs.index(divider1) + 1
     index2 = sorted_inputs.index(divider2) + 1
@@ -88,10 +76,8 @@ def process(raw):
     packets = []
     raw = raw.split('\n')
     for i in range(0, len(raw), 3):
-        packets.append((
-            eval(raw[i].strip()),
-            eval(raw[i+1].strip()),
-        ))
+        packets.append(eval(raw[i].strip()))
+        packets.append(eval(raw[i+1].strip()))
     return packets
 
 if __name__ == '__main__':

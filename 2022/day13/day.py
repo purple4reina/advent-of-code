@@ -1,4 +1,8 @@
+import copy
+import functools
+
 def correct_order(left, right):
+    left, right = copy.deepcopy(left), copy.deepcopy(right)
     while left and right:
         l, r = left.pop(0), right.pop(0)
         lint, rint = isinstance(l, int), isinstance(r, int)
@@ -35,11 +39,44 @@ def correct_indexes(inputs):
             indexes.append(i + 1)
     return indexes
 
+def as_sort_key(fn):
+    def wrap(a, b):
+        val = fn(a, b)
+        if val is True:
+            return 1
+        if val is False:
+            return -1
+        return 0
+    return wrap
+
 def part1(inputs):
     return sum(correct_indexes(inputs))
 
 def part2(inputs):
-    pass
+    inp = []
+    for a, b in inputs:
+        inp.append(a)
+        inp.append(b)
+
+    divider1 = [[2]]
+    divider2 = [[6]]
+    inp.append(divider1)
+    inp.append(divider2)
+
+    print('--------------------inp--------------------')
+    for i in inp:
+        print(i)
+
+    sorted_inputs = sorted(
+            inp, key=functools.cmp_to_key(as_sort_key(correct_order)),
+            reverse=True)
+    print('--------------------sorted--------------------')
+    for s in sorted_inputs:
+        print(s)
+
+    index1 = sorted_inputs.index(divider1) + 1
+    index2 = sorted_inputs.index(divider2) + 1
+    return index1 * index2
 
 def read_inputs():
     import os

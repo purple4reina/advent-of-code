@@ -1,39 +1,34 @@
-import sys
-sys.setrecursionlimit(45000)
-
 def part1(inputs):
-    hmap, (sary, sarx), (endy, endx) = inputs
+    hmap, (begy, begx), (endy, endx) = inputs
     height, width = len(hmap), len(hmap[0])
+    vmap = [[None for _ in range(width)] for _ in range(height)]
 
-    def travel(locx, locy, visited):
-        if (locx, locy) in visited:
-            return float('inf')
-        visited = visited + ((locx, locy),)
+    # start with S
+    # for each location in the set
+    #   for each unvisited neighbor of this location
+    #       if this neighbor is the end, we're done
+    #       set the value (+1 from the prev value) in vmap
 
-        if locx == sarx and locy == sary:
-            return 0
+    def unvisited_neighbors(locx, locy):
+        for newx, newy in [
+                (locx-1, locy), (locx+1, locy), (locx, locy-1), (locx, locy+1)]:
+            if newx < 0 or newx >= width or newy < 0 or newy >= height:
+                continue
+            if vmap[newy][newx] is not None:
+                continue
+            if hmap[newy][newx] - hmap[locy][locx] > 1:
+                continue
+            yield newx, newy
 
-        shortest = float('inf')
-        elev = hmap[locy][locx]
-        for x in (-1, 1):
-            newx = locx + x
-            if newx >= 0 and newx < width:
-                if hmap[locy][newx] - elev < -1:
-                    continue
-                val = travel(newx, locy, visited)
-                shortest = min(shortest, val + 1)
-
-        for y in (-1, 1):
-            newy = locy + y
-            if newy >= 0 and newy < height:
-                if hmap[newy][locx] - elev < -1:
-                    continue
-                val = travel(locx, newy, visited)
-                shortest = min(shortest, val + 1)
-
-        return shortest
-
-    return travel(endx, endy, ())
+    last_visited, new_visited, step = [(begx, begy)], [], 1
+    while last_visited:
+        for locx, locy in last_visited:
+            for newx, newy in unvisited_neighbors(locx, locy):
+                if newx == endx and newy == endy:
+                    return step
+                vmap[newy][newx] = step
+                new_visited.append((newx, newy))
+        last_visited, new_visited, step = new_visited, [], step + 1
 
 def part2(inputs):
     pass
@@ -60,12 +55,6 @@ def process(raw):
     return hmap, divmod(start, width), divmod(end, width)
 
 if __name__ == '__main__':
-    inputs = process('Sabqponm\nabcryxxl\naccszExk\nacctuvwj\nabdefghi')
-    for _ in range(2000):
-        part1(inputs)
-    exit(0)
-
-
     read = read_inputs()
     print(part1(process(read)))
     print(part2(process(read)))

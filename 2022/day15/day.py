@@ -33,6 +33,7 @@ def part2(points, most=20):
     world = {}
     for sx, sy, bx, by in points:
         dist = abs(sx - bx) + abs(sy - by)
+        print('sx,sy,dist: ', sx,sy,dist)
 
         if sx < 0:
             if sx + dist < 0:
@@ -51,8 +52,8 @@ def part2(points, most=20):
             if sy + y < 0 and sy + y > most and sy - y < 0 and sy - y > most:
                 continue
             for x in range(dist - y + 1):
-                #if sx + x > most:
-                #    break
+                if sx - x > most:
+                    break
                 world[(sx + x, sy + y)] = True
                 world[(sx + x, sy - y)] = True
                 world[(sx - x, sy + y)] = True

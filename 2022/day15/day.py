@@ -2,11 +2,23 @@ def part1(points, _y=10):
     world = {}
     for sx, sy, bx, by in points:
         dist = abs(sx - bx) + abs(sy - by)
-        for x in range(-dist, dist + 1):
-            for y in range(-dist, dist + 1):
-                if abs(x) + abs(y) > dist:
-                    continue
+        print('sx,sy,dist: ', sx,sy,dist)
+
+        if sy > _y:
+            if sy - dist > _y:
+                continue
+        else:
+            if sy + dist < _y:
+                continue
+
+        for y in range(dist + 1):
+            if sy + y != _y and sy - y != _y:
+                continue
+            for x in range(dist - y + 1):
                 world[(sx + x, sy + y)] = True
+                world[(sx + x, sy - y)] = True
+                world[(sx - x, sy + y)] = True
+                world[(sx - x, sy - y)] = True
 
     total = 0
     for x, y in world:
@@ -36,5 +48,5 @@ def process(raw):
 
 if __name__ == '__main__':
     read = read_inputs()
-    print(part1(process(read), y=2000000))
+    print(part1(process(read), _y=2000000))
     print(part2(process(read)))

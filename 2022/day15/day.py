@@ -34,62 +34,13 @@ def part2(points, most=20):
 
     for y in range(most + 1):
         for x in range(most + 1):
-            if x % 100000 == 0: print(x,y)
             for sx, sy, dist in ptdist:
                 if abs(sx - x) + abs(sy - y) <= dist:
                     break
             else:
                 return 4000000 * x + y
-    assert False
 
-    world = {}
-    for sx, sy, bx, by in points:
-        dist = abs(sx - bx) + abs(sy - by)
-
-        if sx < 0:
-            if sx + dist < 0:
-                continue
-        elif sx > most:
-            if sx - dist > most:
-                continue
-        elif sy < 0:
-            if sy + dist < 0:
-                continue
-        elif sy > most:
-            if sy - dist > most:
-                continue
-
-        for y in range(dist + 1):
-            if sy - y > most:
-                break
-            if sy + y < 0 and sy + y > most and sy - y < 0 and sy - y > most:
-                continue
-            for x in range(dist - y + 1):
-                if sx - x > most:
-                    break
-                world[(sx + x, sy + y)] = True
-                world[(sx + x, sy - y)] = True
-                world[(sx - x, sy + y)] = True
-                world[(sx - x, sy - y)] = True
-
-    xs = [0] * (most + 1)
-    ys = [0] * (most + 1)
-    for x, y in world:
-        if x >= 0 and x <= most and y >= 0 and y <= most:
-            xs[x] += 1
-            ys[y] += 1
-
-    lx = ly = float('inf')
-    ix = iy = None
-    for i, x in enumerate(xs):
-        if x < lx:
-            lx = x
-            ix = i
-    for i, y in enumerate(ys):
-        if y < ly:
-            ly = y
-            iy = i
-    return tuning(ix, iy)
+    assert False, 'you should have found an answer'
 
 def read_inputs():
     import os

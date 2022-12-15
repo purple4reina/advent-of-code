@@ -33,10 +33,46 @@ def part1(rocks):
             world[(rockx, rocky)] = True
             rockx, rocky, count = 500, 0, count + 1
 
-    return count
+def part2(rocks):
+    world, maxy = {}, 0
+    for path in rocks:
+        endx, endy = path.pop(0)
+        while path:
+            (startx, starty), (endx, endy) = (endx, endy), path.pop(0)
+            stepx = 2*(endx > startx) - 1
+            stepy = 2*(endy > starty) - 1
+            for x in range(startx, endx+stepx, stepx):
+                for y in range(starty, endy+stepy, stepy):
+                    world[(x, y)] = True
+                    maxy = max(maxy, y)
 
-def part2(inputs):
-    pass
+    rockx, rocky, count = 500, 0, 0
+    while True:
+        # if in infinite pit, break
+        if rocky == maxy + 1:
+            world[(rockx, rocky)] = True
+            rockx, rocky, count = 500, 0, count + 1
+
+        # fall down
+        elif (rockx, rocky + 1) not in world:
+            rockx, rocky = rockx, rocky + 1
+
+        # fall diagonal left
+        elif (rockx - 1, rocky + 1) not in world:
+            rockx, rocky = rockx - 1, rocky + 1
+
+        # fall diagonal right
+        elif (rockx + 1, rocky + 1) not in world:
+            rockx, rocky = rockx + 1, rocky + 1
+
+        # else stop, next rock
+        else:
+            world[(rockx, rocky)] = True
+            if rockx == 500 and rocky == 0:
+                break
+            rockx, rocky, count = 500, 0, count + 1
+
+    return count + 1
 
 def read_inputs():
     import os

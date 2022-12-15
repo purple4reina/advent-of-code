@@ -7,7 +7,7 @@ _test_input = """
 503,4 -> 502,4 -> 502,9 -> 494,9
 """.strip()
 _test_part1_expect = 24
-_test_part2_expect = None
+_test_part2_expect = 93
 
 with open('input.txt') as f:
     _actual_inputs = f.read()

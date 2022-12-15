@@ -27,8 +27,20 @@ def part1(points, _y=10):
 
 def part2(points, most=20):
 
-    def tuning(x, y):
-        return 4000000 * x + y
+    ptdist = []
+    for sx, sy, bx, by in points:
+        dist = abs(sx - bx) + abs(sy - by)
+        ptdist.append((sx, sy, dist))
+
+    for y in range(most + 1):
+        for x in range(most + 1):
+            if x % 100000 == 0: print(x,y)
+            for sx, sy, dist in ptdist:
+                if abs(sx - x) + abs(sy - y) <= dist:
+                    break
+            else:
+                return 4000000 * x + y
+    assert False
 
     world = {}
     for sx, sy, bx, by in points:

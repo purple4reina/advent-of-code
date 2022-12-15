@@ -19,7 +19,7 @@ Sensor at x=14, y=3: closest beacon is at x=15, y=3
 Sensor at x=20, y=1: closest beacon is at x=15, y=3
 """.strip()
 _test_part1_expect = 26
-_test_part2_expect = None
+_test_part2_expect = 56000011
 
 with open('input.txt') as f:
     _actual_inputs = f.read()
@@ -34,13 +34,13 @@ def test_part1(raw, y, expect):
     assert expect == part1(inputs, _y=y)
 
 _test_part2 = (
-        (_test_input, _test_part2_expect),
+        (_test_input, 20, _test_part2_expect),
 )
 
-@pytest.mark.parametrize('raw,expect', _test_part2)
-def test_part2(raw, expect):
+@pytest.mark.parametrize('raw,most,expect', _test_part2)
+def test_part2(raw, most, expect):
     inputs = process(raw)
-    assert expect == part2(inputs)
+    assert expect == part2(inputs, most)
 
 _part1_wrong_answers = (
 )

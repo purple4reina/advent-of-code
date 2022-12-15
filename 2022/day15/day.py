@@ -33,7 +33,6 @@ def part2(points, most=20):
     world = {}
     for sx, sy, bx, by in points:
         dist = abs(sx - bx) + abs(sy - by)
-        print('sx,sy,dist: ', sx,sy,dist)
 
         if sx < 0:
             if sx + dist < 0:
@@ -60,14 +59,6 @@ def part2(points, most=20):
                 world[(sx + x, sy - y)] = True
                 world[(sx - x, sy + y)] = True
                 world[(sx - x, sy - y)] = True
-
-    #import numpy as np
-    #w = np.array([[x, y] for x, y in world.keys()])
-    #import matplotlib.pyplot as plot
-    #plot.plot(w[:,0], w[:,1], 'ro')
-    #plot.xlim([0, most])
-    #plot.ylim([0, most])
-    #plot.show()
 
     xs = [0] * (most + 1)
     ys = [0] * (most + 1)

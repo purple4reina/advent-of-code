@@ -49,6 +49,8 @@ def part2(points, most=20):
                 continue
 
         for y in range(dist + 1):
+            if sy - y > most:
+                break
             if sy + y < 0 and sy + y > most and sy - y < 0 and sy - y > most:
                 continue
             for x in range(dist - y + 1):
@@ -59,13 +61,13 @@ def part2(points, most=20):
                 world[(sx - x, sy + y)] = True
                 world[(sx - x, sy - y)] = True
 
-    import numpy as np
-    w = np.array([[x, y] for x, y in world.keys()])
-    import matplotlib.pyplot as plot
-    plot.plot(w[:,0], w[:,1], 'ro')
-    plot.xlim([0, most])
-    plot.ylim([0, most])
-    plot.show()
+    #import numpy as np
+    #w = np.array([[x, y] for x, y in world.keys()])
+    #import matplotlib.pyplot as plot
+    #plot.plot(w[:,0], w[:,1], 'ro')
+    #plot.xlim([0, most])
+    #plot.ylim([0, most])
+    #plot.show()
 
     xs = [0] * (most + 1)
     ys = [0] * (most + 1)
@@ -105,5 +107,5 @@ def process(raw):
 
 if __name__ == '__main__':
     read = read_inputs()
-    print(part1(process(read), _y=2000000))
+    #print(part1(process(read), _y=2000000))
     print(part2(process(read), most=4000000))

@@ -45,7 +45,8 @@ def part2(points, most=20):
             end = max(end, 0)
             end = min(end, most)
 
-            row[start:end+1] = [1] * (end - start + 1)
+            if end > start:
+                row[start:end+1] = [1] * (end - start + 1)
 
         if 0 in row:
             return 4000000 * row.index(0) + y
@@ -62,7 +63,7 @@ def process(raw):
     import re
     points = []
     row_re = re.compile(
-            r'Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)')
+            r'\s*Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)')
     for row in raw.split('\n'):
         m = row_re.match(row)
         point = tuple(map(int, m.groups()))

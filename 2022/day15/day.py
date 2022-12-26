@@ -33,12 +33,22 @@ def part2(points, most=20):
         ptdist.append((sx, sy, dist))
 
     for y in range(most + 1):
-        for x in range(most + 1):
-            for sx, sy, dist in ptdist:
-                if abs(sx - x) + abs(sy - y) <= dist:
-                    break
-            else:
-                return 4000000 * x + y
+        row = [0] * (most + 1)
+        for sx, sy, dist in ptdist:
+            absy = abs(y - sy)
+
+            start = sx - dist + absy
+            start = max(start, 0)
+            start = min(start, most)
+
+            end = sx + dist - absy
+            end = max(end, 0)
+            end = min(end, most)
+
+            row[start:end+1] = [1] * (end - start + 1)
+
+        if 0 in row:
+            return 4000000 * row.index(0) + y
 
     assert False, 'you should have found an answer'
 

@@ -45,7 +45,7 @@ def part2(points, most=20):
             end = max(end, 0)
             end = min(end, most)
 
-            if end > start:
+            if end >= start:
                 row[start:end+1] = [1] * (end - start + 1)
 
         if sum(row) == most:

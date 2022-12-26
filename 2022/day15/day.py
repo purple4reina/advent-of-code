@@ -48,7 +48,7 @@ def part2(points, most=20):
             if end > start:
                 row[start:end+1] = [1] * (end - start + 1)
 
-        if 0 in row:
+        if sum(row) == most:
             return 4000000 * row.index(0) + y
 
     assert False, 'you should have found an answer'

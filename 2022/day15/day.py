@@ -32,24 +32,24 @@ def part2(points, most=20):
         dist = abs(sx - bx) + abs(sy - by)
         ptdist.append((sx, sy, dist))
 
-    for y in range(most + 1):
-        row = [0] * (most + 1)
-        for sx, sy, dist in ptdist:
-            absy = abs(y - sy)
+    world = {}
+    for sx, sy, dist in ptdist:
+        for y in range(dist + 2):
+            x = dist + 1 - y
+            world[(sx + x, sy + y)] = True
+            world[(sx + x, sy - y)] = True
+            world[(sx - x, sy + y)] = True
+            world[(sx - x, sy - y)] = True
 
-            start = sx - dist + absy
-            start = max(start, 0)
-            start = min(start, most)
-
-            end = sx + dist - absy
-            end = max(end, 0)
-            end = min(end, most)
-
-            if end >= start:
-                row[start:end+1] = [1] * (end - start + 1)
-
-        if sum(row) == most:
-            return 4000000 * row.index(0) + y
+    for x, y in world:
+        if x < 0 or x > most or y < 0 or y > most:
+            continue
+        for sx, sy, d in ptdist:
+            dist = abs(sx - x) + abs(sy - y)
+            if dist <= d:
+                break
+        else:
+            return 4000000 * x + y
 
     assert False, 'you should have found an answer'
 
@@ -72,5 +72,5 @@ def process(raw):
 
 if __name__ == '__main__':
     read = read_inputs()
-    #print(part1(process(read), _y=2000000))
+    print(part1(process(read), _y=2000000))
     print(part2(process(read), most=4000000))

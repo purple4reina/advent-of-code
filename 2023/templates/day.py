@@ -11,7 +11,7 @@ def read_inputs():
         return f.read().strip()
 
 def process(raw):
-    return list(map(int, raw.split()))
+    return list(raw.split())
 
 if __name__ == '__main__':
     read = read_inputs()

@@ -10,7 +10,7 @@ Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 """.strip()
 _test_part1_expect = 8
-_test_part2_expect = None
+_test_part2_expect = 2286
 
 with open('input.txt') as f:
     _actual_inputs = f.read()

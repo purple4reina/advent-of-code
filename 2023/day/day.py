@@ -10,7 +10,15 @@ def part1(inputs):
     return total
 
 def part2(inputs):
-    pass
+    total = 0
+    for game in inputs:
+        reds = blues = greens = 0
+        for red, blue, green in game:
+            reds = max(red, reds)
+            blues = max(blue, blues)
+            greens = max(green, greens)
+        total += reds * blues * greens
+    return total
 
 def read_inputs():
     import os

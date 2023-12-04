@@ -1,7 +1,10 @@
 #!/bin/bash
 
 num=$1
-[[ "$num" =~ ^[0-9]{2}$ ]] || (echo "  Must enter two digit number!" && exit 1)
+if [[ ! "$num" =~ ^[0-9]{2}$ ]]; then
+    echo "Enter two digit number!  ex: ./newday.sh 03"
+    exit 1
+fi
 
 dir="day${num}"
 mkdir $dir

@@ -14,7 +14,7 @@ _test_part1_expect = 13
 _test_part2_expect = 30
 
 with open('input.txt') as f:
-    _actual_inputs = f.read()
+    _actual_inputs = f.read().strip()
 
 _test_part1 = (
         (_test_input, _test_part1_expect),
@@ -43,7 +43,8 @@ def test_part1_wrong_answers(ans):
     assert ans != part1(inputs)
 
 _part2_wrong_answers = (
-)
+        463,
+) + tuple(range(463))
 
 @pytest.mark.parametrize('ans', _part2_wrong_answers)
 def test_part2_wrong_answers(ans):

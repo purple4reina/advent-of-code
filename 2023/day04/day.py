@@ -9,7 +9,13 @@ def part1(inputs):
     return total
 
 def part2(inputs):
-    pass
+    winning_numbers = len(inputs)
+    card_cnts = [1] * winning_numbers
+    for card, (wins, have) in enumerate(inputs):
+        match_cnt = sum(h in wins for h in have)
+        for i in range(card+1, min(card+match_cnt+1, winning_numbers)):
+            card_cnts[i] += card_cnts[card]
+    return sum(card_cnts)
 
 def read_inputs():
     import os

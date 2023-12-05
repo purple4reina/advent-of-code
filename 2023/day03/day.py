@@ -33,7 +33,50 @@ def part1(inputs):
     return total
 
 def part2(inputs):
-    pass
+    total, total_rows, total_columns = 0, len(inputs), len(inputs[0])
+    for row in range(total_rows):
+        for col in range(total_columns):
+            if inputs[row][col] != '*':
+                continue
+            parts_found = 0
+            for i in range(row-1, row+2):
+                if i < 0 or i >= total_rows:
+                    continue
+                digit_found = False
+                for j in range(col-1, col+2):
+                    if j < 0 or j >= total_columns:
+                        continue
+                    if inputs[i][j] in _digits:
+                        if not digit_found:
+                            parts_found += 1
+                        digit_found = True
+                    else:
+                        digit_found = False
+            if parts_found < 2:
+                continue
+            gear_ratio = 1
+            for i in range(row-1, row+2):
+                if i < 0 or i >= total_rows:
+                    continue
+                digit_found = False
+                for j in range(col-1, col+2):
+                    if j < 0 or j >= total_columns:
+                        continue
+                    if not digit_found and inputs[i][j] in _digits:
+                        # determine part number
+                        part_start = part_end = j
+                        while part_start > 0:
+                            if inputs[i][part_start-1] not in _digits:
+                                break
+                            part_start -= 1
+                        while part_end < total_columns - 1:
+                            if inputs[i][part_end+1] not in _digits:
+                                break
+                            part_end += 1
+                        gear_ratio *= int(''.join(inputs[i][part_start:part_end+1]))
+                    digit_found = inputs[i][j] in _digits
+            total += gear_ratio
+    return total
 
 def read_inputs():
     import os

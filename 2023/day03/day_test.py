@@ -15,7 +15,7 @@ _test_input = """
 .664.598..
 """.strip()
 _test_part1_expect = 4361
-_test_part2_expect = None
+_test_part2_expect = 467835
 
 with open('input.txt') as f:
     _actual_inputs = f.read()

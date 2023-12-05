@@ -8,7 +8,7 @@ _test_part1_expect = None
 _test_part2_expect = None
 
 with open('input.txt') as f:
-    _actual_inputs = f.read()
+    _actual_inputs = f.read().strip()
 
 _test_part1 = (
         (_test_input, _test_part1_expect),

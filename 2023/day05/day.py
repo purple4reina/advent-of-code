@@ -12,12 +12,27 @@ def part1(inputs):
     return min(starts)
 
 def part2(inputs):
-    pass
+    start_ranges, maps = inputs
+
+    starts = []
+    while start_ranges:
+        start, num = start_ranges.pop(0), start_ranges.pop(0)
+        for s in range(start, start + num + 1):
+            starts.append(s)
+
+    for this_maps in maps:
+        next_starts = []
+        for start in starts:
+            for i, j, k in this_maps:
+                if start >= j and start < j + k:
+                    start = i - j + start
+                    break
+            next_starts.append(start)
+        starts = next_starts
+    return min(starts)
 
 def read_inputs():
-    import os
-    file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'input.txt')
-    with open(file) as f:
+    with open('input.txt') as f:
         return f.read().strip()
 
 def process(raw):

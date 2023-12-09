@@ -1,3 +1,5 @@
+import math
+
 def part1(inputs):
     turns, nodes = inputs
     loc, count = 'AAA', 0
@@ -9,19 +11,25 @@ def part1(inputs):
     return count
 
 def part2(inputs):
+    def lcm(a, b):
+        if a < 0 or b < 0:
+            raise ValueError("Inputs must be non-negative")
+        if a == 0 or b == 0:
+            return 0
+        return (a * b) // math.gcd(a, b)
+
     turns, nodes = inputs
     locs = [node for node in nodes if node[-1] == 'A']
-    count = 0
-    while any(l[-1] != 'Z' for l in locs):
-        if count % 1e6 == 0: print('count: ', count)
-        turn = turns[count % len(turns)]
-        new_locs = []
-        for loc in locs:
+    counts = 1
+    for loc in locs:
+        count = 0
+        while not loc.endswith('Z'):
+            turn = turns[count % len(turns)]
             left, right = nodes[loc]
-            new_locs.append(left if turn == 'L' else right)
-        count += 1
-        locs = new_locs
-    return count
+            loc = left if turn == 'L' else right
+            count += 1
+        counts = lcm(counts, count)
+    return counts
 
 def read_inputs():
     with open('input.txt') as f:

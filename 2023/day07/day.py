@@ -17,7 +17,27 @@ def part1(inputs):
     return total
 
 def part2(inputs):
-    pass
+    values = 'J23456789TQKA'
+    ranks = {k: v for v, k in enumerate(values)}
+
+    def score(hand):
+        hand, _ = hand
+        cards = {}
+        js = 0
+        for card in hand:
+            isj = card == 'J'
+            cards[card] = cards.get(card, 0) + (not isj)
+            js += isj
+        score = sorted(list(cards.get(v, 0) for v in values), reverse=True)
+        score[0] += js
+        tie = list(ranks[c] for c in hand)
+        return score, tie
+
+    total = 0
+    for i, (_, bid) in enumerate(sorted(inputs, key=score)):
+        total += bid * (i + 1)
+
+    return total
 
 def read_inputs():
     with open('input.txt') as f:

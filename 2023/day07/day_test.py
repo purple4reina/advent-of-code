@@ -10,7 +10,7 @@ KTJJT 220
 QQQJA 483
 """.strip()
 _test_part1_expect = 6440
-_test_part2_expect = None
+_test_part2_expect = 5905
 
 with open('input.txt') as f:
     _actual_inputs = f.read().strip()
@@ -42,6 +42,7 @@ def test_part1_wrong_answers(ans):
     assert ans != part1(inputs)
 
 _part2_wrong_answers = (
+    252997624,  # too low
 )
 
 @pytest.mark.parametrize('ans', _part2_wrong_answers)

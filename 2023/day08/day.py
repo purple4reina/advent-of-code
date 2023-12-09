@@ -9,7 +9,19 @@ def part1(inputs):
     return count
 
 def part2(inputs):
-    pass
+    turns, nodes = inputs
+    locs = [node for node in nodes if node[-1] == 'A']
+    count = 0
+    while any(l[-1] != 'Z' for l in locs):
+        if count % 1e6 == 0: print('count: ', count)
+        turn = turns[count % len(turns)]
+        new_locs = []
+        for loc in locs:
+            left, right = nodes[loc]
+            new_locs.append(left if turn == 'L' else right)
+        count += 1
+        locs = new_locs
+    return count
 
 def read_inputs():
     with open('input.txt') as f:

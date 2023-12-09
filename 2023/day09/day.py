@@ -1,14 +1,9 @@
 def part1(inputs):
     total = 0
     for seq in inputs:
-        seqs = [seq]
         while sum(seq):
+            total += seq[-1]
             seq = [seq[i] - seq[i-1] for i in range(1, len(seq))]
-            seqs.append(seq)
-        num = 0
-        for seq in reversed(seqs):
-            num += seq[-1]
-        total += num
     return total
 
 def part2(inputs):

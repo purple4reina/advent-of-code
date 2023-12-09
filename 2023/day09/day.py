@@ -1,7 +1,8 @@
 def part1(inputs):
     total = 0
     for seq in inputs:
-        while sum(seq):
+        t = total
+        while any(seq):
             total += seq[-1]
             seq = [seq[i] - seq[i-1] for i in range(1, len(seq))]
     return total

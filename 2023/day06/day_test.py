@@ -3,9 +3,11 @@ import pytest
 from day import part1, part2, process
 
 _test_input = """
+Time:      7  15   30
+Distance:  9  40  200
 """.strip()
-_test_part1_expect = None
-_test_part2_expect = None
+_test_part1_expect = 288
+_test_part2_expect = 71503
 
 with open('input.txt') as f:
     _actual_inputs = f.read().strip()

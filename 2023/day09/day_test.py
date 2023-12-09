@@ -32,6 +32,7 @@ def test_part2(raw, expect):
     assert expect == part2(inputs)
 
 _part1_wrong_answers = (
+        1938800267,  # too high
         1938800269,  # too high
         1938800271,  # too high
 )

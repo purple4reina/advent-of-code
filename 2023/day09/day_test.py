@@ -8,7 +8,7 @@ _test_input = """
 10 13 16 21 30 45
 """.strip()
 _test_part1_expect = 114
-_test_part2_expect = None
+_test_part2_expect = 2
 
 with open('input.txt') as f:
     _actual_inputs = f.read().strip()

@@ -8,7 +8,14 @@ def part1(inputs):
     return total
 
 def part2(inputs):
-    pass
+    total = 0
+    for seq in inputs:
+        mult = 1
+        while any(seq):
+            total += seq[0] * mult
+            seq = [seq[i] - seq[i-1] for i in range(1, len(seq))]
+            mult *= -1
+    return total
 
 def read_inputs():
     with open('input.txt') as f:
